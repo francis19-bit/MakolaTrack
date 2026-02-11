@@ -40,6 +40,8 @@ export function Header() {
           <DropdownMenuItem asChild>
             <Link href="/login">Logout</Link>
           </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem className="text-destructive">Delete Account</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>

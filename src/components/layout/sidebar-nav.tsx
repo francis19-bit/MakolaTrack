@@ -15,7 +15,7 @@ import { Leaf, LayoutDashboard, Carrot, Warehouse, Truck, Users, FileText, Shopp
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/produce', label: 'Produce', icon: Carrot },
-  { href: '/market-view', label: 'Market View', icon: ShoppingCart },
+  { href: '/market', label: 'Market View', icon: ShoppingCart },
   { href: '/reports', label: 'Reports', icon: FileText },
   { href: '/admin', label: 'Admin', icon: Users },
 ];
