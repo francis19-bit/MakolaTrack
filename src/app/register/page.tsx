@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Card,
   CardContent,
@@ -17,8 +20,23 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Leaf } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 export default function RegisterPage() {
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    toast({
+      title: 'Registration Successful',
+      description: 'You can now log in.',
+    });
+    // In a real app, you'd create a user here.
+    // For this dummy implementation, we just redirect to login.
+    router.push('/login');
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-background p-4">
       <div className="w-full max-w-md">
@@ -35,7 +53,7 @@ export default function RegisterPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleRegister}>
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
                 <Input id="name" placeholder="Yaw Manu" required />
@@ -55,7 +73,7 @@ export default function RegisterPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="role">Role</Label>
-                <Select>
+                <Select required>
                   <SelectTrigger id="role">
                     <SelectValue placeholder="Select your role" />
                   </SelectTrigger>

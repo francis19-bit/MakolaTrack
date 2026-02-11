@@ -1,4 +1,8 @@
+'use client';
+
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import {
   Card,
   CardContent,
@@ -10,8 +14,32 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Leaf } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 export default function LoginPage() {
+  const router = useRouter();
+  const { toast } = useToast();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Dummy user credentials from src/lib/data.ts
+    if (email === 'yaw.manu@example.com' && password === 'password123') {
+      toast({
+        title: 'Login Successful',
+        description: 'Welcome back, Yaw Manu!',
+      });
+      router.push('/dashboard');
+    } else {
+      toast({
+        variant: 'destructive',
+        title: 'Login Failed',
+        description: 'Invalid email or password. Please try again.',
+      });
+    }
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-background p-4">
       <div className="w-full max-w-md">
@@ -24,11 +52,20 @@ export default function LoginPage() {
               Welcome to MakolaTrack
             </CardTitle>
             <CardDescription>
-              Sign in to track your farm produce
+              Sign in to track your farm produce. <br />
+              Use{' '}
+              <code className="font-mono p-1 bg-muted rounded">
+                yaw.manu@example.com
+              </code>{' '}
+              and{' '}
+              <code className="font-mono p-1 bg-muted rounded">
+                password123
+              </code>{' '}
+              to log in.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleLogin}>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -36,11 +73,19 @@ export default function LoginPage() {
                   type="email"
                   placeholder="name@example.com"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" required />
+                <Input
+                  id="password"
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </div>
               <Button type="submit" className="w-full">
                 Sign In
