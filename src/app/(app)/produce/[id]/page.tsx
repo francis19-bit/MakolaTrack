@@ -25,6 +25,7 @@ import { format } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
 import { StatusTimeline } from '@/components/produce/status-timeline';
 import { useToast } from '@/hooks/use-toast';
+import { Label } from '@/components/ui/label';
 
 export default function ProduceDetailsPage({
   params,
